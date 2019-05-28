@@ -2302,6 +2302,18 @@ function Results(board) {
   this.switchgrassYieldScore = [0, 0, 0, 0];
   this.woodYieldScore = [0, 0, 0, 0];
   this.shortRotationWoodyBiomassYieldScore = [0, 0, 0, 0];
+  this.conservationCornYieldScore=[0,0,0,0];
+  this.conventionalCornYieldScore=[0,0,0,0];
+  this.conservationSoybeanYieldScore=[0,0,0,0];
+  this.conventionalSoybeanYieldScore=[0,0,0,0];
+  this.greenBeanYieldScore=[0,0,0,0];
+  this.squashYieldScore=[0,0,0,0];
+  this.strawberriesYieldScore=[0,0,0,0];
+  this.grapesYieldScore=[0,0,0,0];
+  this.permanentPastureYieldScore=[0,0,0,0];
+  this.rotationalGrazingYieldScore=[0,0,0,0];
+  this.conventionalForestYieldScore=[0,0,0,0];
+  this.conservationForestYieldScore=[0,0,0,0];
 
   this.totalArea = 0;
   this.totalStreamCells = 0;
@@ -2808,6 +2820,19 @@ if(typeof tileId == 'undefined'){
         switchgrassYield: 0,
         shortRotationWoodyBiomassYield: 0,
         mixedFruitsAndVegetablesYield: 0,
+        conventionalCornYield: 0,
+        conservationCornYield:0,
+        conventionalSoybeanYield:0,
+        conservationSoybeanYield:0,
+        greenBeanYield:0,
+        squashYield:0,
+        strawberriesYield:0,
+        grapesYield:0,
+        permanentPastureYield:0,
+        rotationalGrazingYield:0,
+        conventionalForestYield:0,
+        conservationForestYield:0,
+
       };
       this.yieldResults[1] = {
         cornGrainYield: 0,
@@ -2819,7 +2844,19 @@ if(typeof tileId == 'undefined'){
         switchgrassYield: 0,
         shortRotationWoodyBiomassYield: 0,
         mixedFruitsAndVegetablesYield: 0,
-        cornGrainYieldScore: 0
+        cornGrainYieldScore: 0,
+        conventionalCornYield: 0,
+        conservationCornYield:0,
+        conventionalSoybeanYield:0,
+        conservationSoybeanYield:0,
+        greenBeanYield:0,
+        squashYield:0,
+        strawberriesYield:0,
+        grapesYield:0,
+        permanentPastureYield:0,
+        rotationalGrazingYield:0,
+        conventionalForestYield:0,
+        conservationForestYield:0,
       };
       this.yieldResults[2] = {
         cornGrainYield: 0,
@@ -2830,7 +2867,19 @@ if(typeof tileId == 'undefined'){
         cattleYield: 0,
         switchgrassYield: 0,
         shortRotationWoodyBiomassYield: 0,
-        mixedFruitsAndVegetablesYield: 0
+        mixedFruitsAndVegetablesYield: 0,
+        conventionalCornYield: 0,
+        conservationCornYield:0,
+        conventionalSoybeanYield:0,
+        conservationSoybeanYield:0,
+        greenBeanYield:0,
+        squashYield:0,
+        strawberriesYield:0,
+        grapesYield:0,
+        permanentPastureYield:0,
+        rotationalGrazingYield:0,
+        conventionalForestYield:0,
+        conservationForestYield:0,
       };
       this.yieldResults[3] = {
         cornGrainYield: 0,
@@ -2841,7 +2890,19 @@ if(typeof tileId == 'undefined'){
         cattleYield: 0,
         switchgrassYield: 0,
         shortRotationWoodyBiomassYield: 0,
-        mixedFruitsAndVegetablesYield: 0
+        mixedFruitsAndVegetablesYield: 0,
+        conventionalCornYield: 0,
+        conservationCornYield:0,
+        conventionalSoybeanYield:0,
+        conservationSoybeanYield:0,
+        greenBeanYield:0,
+        squashYield:0,
+        strawberriesYield:0,
+        grapesYield:0,
+        permanentPastureYield:0,
+        rotationalGrazingYield:0,
+        conventionalForestYield:0,
+        conservationForestYield:0,
       };
       this.tileYieldResults = Array(4);
       for(var i = 1; i < 4; i++){
@@ -2867,24 +2928,30 @@ if(typeof tileId == 'undefined'){
               break;
             case "conventionalCorn":
               this.yieldResults[y].cornGrainYield += yieldValueToStore;
+              this.yieldResults[y].conventionalCornYield +=yieldValueToStore;
               break;
             case "conservationCorn":
               this.yieldResults[y].cornGrainYield += yieldValueToStore;
+              this.yieldResults[y].conservationCornYield += yieldValueToStore;
               break;
             case "conventionalSoybean":
               this.yieldResults[y].soybeanYield += yieldValueToStore;
+              this.yieldResults[y].conventionalSoybeanYield += yieldValueToStore;
               break;
             case "conservationSoybean":
               this.yieldResults[y].soybeanYield += yieldValueToStore;
+              this.yieldResults[y].conservationSoybeanYield += yieldValueToStore;
               break;
             case "alfalfa":
               this.yieldResults[y].alfalfaHayYield += yieldValueToStore;
               break;
             case "permanentPasture":
               this.yieldResults[y].cattleYield += yieldValueToStore;
+              this.yieldResults[y].permanentPastureYield += yieldValueToStore;
               break;
             case "rotationalGrazing":
               this.yieldResults[y].cattleYield += yieldValueToStore;
+              this.yieldResults[y].rotationalGrazingYield += yieldValueToStore;
               break;
             case "grassHay":
               this.yieldResults[y].grassHayYield += yieldValueToStore;
@@ -2894,9 +2961,11 @@ if(typeof tileId == 'undefined'){
               break;
             case "conservationForest":
               this.yieldResults[y].woodYield += yieldValueToStore;
+              this.yieldResults[y].conservationForestYield += yieldValueToStore;
               break;
             case "conventionalForest":
               this.yieldResults[y].woodYield += yieldValueToStore;
+              this.yieldResults[y].conventionalForestYield += yieldValueToStore;
               break;
             case "switchgrass":
               this.yieldResults[y].switchgrassYield += yieldValueToStore;
@@ -2924,24 +2993,30 @@ if(typeof tileId == 'undefined'){
           break;
         case "conventionalCorn":
           this.yieldResults[year].cornGrainYield += yieldValueToStore;
+          this.yieldResults[year].conventionalCornYield += yieldValueToStore;
           break;
         case "conservationCorn":
           this.yieldResults[year].cornGrainYield += yieldValueToStore;
+          this.yieldResults[year].conservationCornYield += yieldValueToStore;
           break;
         case "conventionalSoybean":
           this.yieldResults[year].soybeanYield += yieldValueToStore;
+          this.yieldResults[year].conventionalSoybeanYield += yieldValueToStore;
           break;
         case "conservationSoybean":
           this.yieldResults[year].soybeanYield += yieldValueToStore;
+          this.yieldResults[year].conservationSoybeanYield += yieldValueToStore;
           break;
         case "alfalfa":
           this.yieldResults[year].alfalfaHayYield += yieldValueToStore;
           break;
         case "permanentPasture":
           this.yieldResults[year].cattleYield += yieldValueToStore;
+          this.yieldResults[year].permanentPastureYield += yieldValueToStore;
           break;
         case "rotationalGrazing":
           this.yieldResults[year].cattleYield += yieldValueToStore;
+          this.yieldResults[year].rotationalGrazingYield += yieldValueToStore;
           break;
         case "grassHay":
           this.yieldResults[year].grassHayYield += yieldValueToStore;
@@ -2951,9 +3026,11 @@ if(typeof tileId == 'undefined'){
           break;
         case "conservationForest":
           this.yieldResults[year].woodYield += yieldValueToStore;
+          this.yieldResults[year].conservationForestYield += yieldValueToStore;
           break;
         case "conventionalForest":
           this.yieldResults[year].woodYield += yieldValueToStore;
+          this.yieldResults[year].conventionalForestYield += yieldValueToStore;
           break;
         case "switchgrass":
           this.yieldResults[year].switchgrassYield += yieldValueToStore;
@@ -2975,24 +3052,30 @@ if(typeof tileId == 'undefined'){
           break;
         case "conventionalCorn":
           this.yieldResults[year].cornGrainYield -= this.tileYieldResults[year][tileId];
+          this.yieldResults[year].conventionalCornYield -= this.tileYieldResults[year][tileId];
           break;
         case "conservationCorn":
           this.yieldResults[year].cornGrainYield -= this.tileYieldResults[year][tileId];
+          this.yieldResults[year].conservationCornYield -= this.tileYieldResults[year][tileId];
           break;
         case "conventionalSoybean":
           this.yieldResults[year].soybeanYield -= this.tileYieldResults[year][tileId];
+          this.yieldResults[year].conventionalSoybeanYield -= this.tileYieldResults[year][tileId];
           break;
         case "conservationSoybean":
           this.yieldResults[year].soybeanYield -= this.tileYieldResults[year][tileId];
+          this.yieldResults[year].conservationSoybeanYield -= this.tileYieldResults[year][tileId];
           break;
         case "alfalfa":
           this.yieldResults[year].alfalfaHayYield -= this.tileYieldResults[year][tileId];
           break;
         case "permanentPasture":
           this.yieldResults[year].cattleYield -= this.tileYieldResults[year][tileId];
+          this.yieldResults[year].permanentPastureYield -= this.tileYieldResults[year][tileId];
           break;
         case "rotationalGrazing":
           this.yieldResults[year].cattleYield -= this.tileYieldResults[year][tileId];
+          this.yieldResults[year].rotationalGrazingYield -= this.tileYieldResults[year][tileId];
           break;
         case "grassHay":
           this.yieldResults[year].grassHayYield -= this.tileYieldResults[year][tileId];
@@ -3002,9 +3085,11 @@ if(typeof tileId == 'undefined'){
           break;
         case "conservationForest":
           this.yieldResults[year].woodYield -= this.tileYieldResults[year][tileId];
+          this.yieldResults[year].conservationForestYield -= this.tileYieldResults[year][tileId];
           break;
         case "conventionalForest":
           this.yieldResults[year].woodYield -= this.tileYieldResults[year][tileId];
+          this.yieldResults[year].conventionalForestYield -= this.tileYieldResults[year][tileId];
           break;
         case "switchgrass":
           this.yieldResults[year].switchgrassYield -= this.tileYieldResults[year][tileId];
@@ -3296,6 +3381,14 @@ if(typeof tileId == 'undefined'){
         this.switchgrassYieldScore[y] = 100 * this.yieldResults[y].switchgrassYield / board.maximums.switchgrassMax;
         this.shortRotationWoodyBiomassYieldScore[y] = 100 * this.yieldResults[y].shortRotationWoodyBiomassYield / board.maximums.shortRotationWoodyBiomassMax;
         this.mixedFruitsAndVegetablesYieldScore[y] = 100 * this.yieldResults[y].mixedFruitsAndVegetablesYield / board.maximums.mixedFruitsAndVegetablesMax;
+        this.conventionalCornYieldScore[y]= 100 * this.yieldResults[y].conventionalCornYield / board.maximums.cornMax;
+        this.conservationCornYieldScore[y]=100 * this.yieldResults[y].conservationCornYield / board.maximums.cornMax;
+        this.conventionalSoybeanYieldScore[y]= 100 * this.yieldResults[y].conventionalSoybeanYield / board.maximums.soybeanMax;
+        this.conservationSoybeanYieldScore[y]= 100 * this.yieldResults[y].conservationSoybeanYield / board.maximums.soybeanMax;
+        this.permanentPastureYieldScore[y] = 100 * this.yieldResults[y].permanentPastureYield / board.maximums.cattleMax;
+        this.rotationalGrazingYieldScore[y] = 100 * this.yieldResults[y].rotationalGrazingYield / board.maximums.cattleMax;
+        this.conventionalForestYieldScore[y] = 100 * this.yieldResults[y].conventionalForestYield / board.maximums.woodMax;
+        this.conservationForestYieldScore[y] = 100 * this.yieldResults[y].conservationForestYield / board.maximums.woodMax;
 
         this.conventionalCornLandUseScore[y] = 100 * this.landUseResults[y].conventionalCornLandUse / this.totalArea;
         this.conservationCornLandUseScore[y] = 100 * this.landUseResults[y].conservationCornLandUse / this.totalArea;

@@ -2240,19 +2240,36 @@ function generateResultsTable() {
     //========================================
     //THIRD TABLE, YIELD RESULTS
 
-    frontendNames = ["Corn Grain", "Soybeans", "Mixed Fruits and Vegetables", "Cattle", "Alfalfa Hay", "Grass Hay",
-      "Switchgrass Biomass", "Wood", "Short Rotation Woody Biomass"
+    frontendNames = ["Corn Grain", "Conventional Corn","Conservation Corn",
+    "Soybeans","Conventional Soybeans","Conservation Soybeans",
+    "Mixed Fruits and Vegetables","Green Beans","Squash","Strawberries","Grapes",
+    "Cattle","Permanent Pasture","Rotational Grazing",
+    "Alfalfa Hay", "Grass Hay","Switchgrass Biomass",
+    "Wood","Conventional Forest","Conservation Forest",
+      "Short Rotation Woody Biomass"
     ];
 
-    backendDataIdentifiers = ["cornGrainYield", "soybeanYield", "mixedFruitsAndVegetablesYield", "cattleYield",
-      "alfalfaHayYield", "grassHayYield", "switchgrassYield", "woodYield", "shortRotationWoodyBiomassYield"
+    backendDataIdentifiers = ["cornGrainYield", "conventionalCornYield","conservationCornYield",
+    "soybeanYield","conservationSoybeanYield","conventionalSoybeanYield",
+    "mixedFruitsAndVegetablesYield","greenBeanYield","squashYield","strawberriesYield","grapesYield",
+    "cattleYield","permanentPastureYield","rotationalGrazingYield",
+    "alfalfaHayYield", "grassHayYield", "switchgrassYield",
+    "woodYield", "conventionalForestYield","conservationForestYield",
+    "shortRotationWoodyBiomassYield"
     ];
 
+    // bu to Mg = 0.0254 ,
     //conversion factors for the yeilds
-    conversionArray = [0.0254, 0.0272, 0.90718474, 1, 0.90718474, 0.90718474, 0.90718474, 0.002359737, 0.90718474];
+    conversionArray = [0.0254,0.0254,0.0254,
+                      0.0272, 0.0272, 0.0272,
+                      0.90718474, 0.90718474,0.90718474,0.90718474,0.90718474,
+                      1, 1, 1,
+                      0.90718474, 0.90718474, 0.90718474,
+                      0.002359737, 0.002359737, 0.002359737,
+                      0.90718474];
 
     //fill in table rows with data
-
+    console.log(Totals);
     for (var l = 0; l < backendDataIdentifiers.length; l++) {
 
       //keep track of subheadings, just 1 this time
@@ -2265,6 +2282,8 @@ function generateResultsTable() {
       } //end switch
 
       htmlTableString += "<tr>";
+      //if statement to indent
+      // if(frontendNames[i]=="")
 
       htmlTableString += "<td>" + frontendNames[l] + "</td>";
 
@@ -2289,17 +2308,28 @@ function generateResultsTable() {
       } //for each year
 
       //units cell, lots of different ones to keep track of here
-      if (l < 2) htmlTableString += "<td>bu</td>";
-      if (l == 2) htmlTableString += "<td>tons</td>";
-      if (l == 3) htmlTableString += "<td>animals</td>"; //what an odd unit
-      if (4 <= l && l < 7) htmlTableString += "<td>tons</td>";
-      if (l == 7) htmlTableString += "<td>board-ft</td>";
-      if (l == 8) htmlTableString += "<td>tons</td>";
+      if(l<6){
+        htmlTableString += "<td>bu</td>";
+      }else if(l<11){
+        htmlTableString += "<td>tons</td>";
+      }else if(l<14){
+        htmlTableString += "<td>animals</td>";
+      }else if(l<17){
+        htmlTableString += "<td>tons</td>";
+      }else if(l<20){
+        htmlTableString += "<td>board-ft</td>";
+      }else{
+        htmlTableString += "<td>tons</td>";
+      }
 
       for (var y = 1; y <= upToYear; y++) {
         htmlTableString += "<td>";
-
         var tempString = backendDataIdentifiers[l];
+        console.log(tempString);
+        console.log(conversionArray[l]);
+        console.log(Totals.yieldResults[y][tempString]);
+        console.log(Totals.yieldResults[y][tempString] * conversionArray[l] * 10);
+        console.log(Math.round(Totals.yieldResults[y][tempString] * conversionArray[l] * 10) / 10);
         htmlTableString += (Math.round(Totals.yieldResults[y][tempString] * conversionArray[l] * 10) / 10) + "<br>";
 
         htmlTableString += "</td>";
@@ -2307,13 +2337,21 @@ function generateResultsTable() {
 
       } //for each year
 
-      //units cell
-      if (l < 2) htmlTableString += "<td>Mg</td>";
-      if (l == 2) htmlTableString += "<td>Mg</td>";
-      if (l == 3) htmlTableString += "<td>animals</td>";
-      if (4 <= l && l < 7) htmlTableString += "<td>Mg</td>";
-      if (l == 7) htmlTableString += "<td>m^3</td>";
-      if (l == 8) htmlTableString += "<td>Mg</td>";
+      //unit cell in metric
+      if(l<6){
+        htmlTableString += "<td>Mg</td>";
+      }else if(l<11){
+      htmlTableString += "<td>Mg</td>";
+      }else if(l<14){
+        htmlTableString += "<td>animals</td>";
+      }else if(l<17){
+        htmlTableString += "<td>Mg</td>";
+      }else if(l<20){
+        htmlTableString += "<td>m^3</td>";
+      }else{
+        htmlTableString += "<td>Mg</td>";
+      }
+
     }
 
     htmlTableString += "</table><br>";
