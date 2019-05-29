@@ -2270,8 +2270,9 @@ function generateResultsTable() {
 
     //fill in table rows with data
     console.log(Totals);
+    var subcategory=false;
     for (var l = 0; l < backendDataIdentifiers.length; l++) {
-
+      subcategory=false;
       //keep track of subheadings, just 1 this time
       switch (l) {
         case 0:
@@ -2283,16 +2284,18 @@ function generateResultsTable() {
 
       htmlTableString += "<tr>";
       //if statement to indent
-      // if(frontendNames[i]=="")
-
-      htmlTableString += "<td>" + frontendNames[l] + "</td>";
-
+      //console.log(frontendNames[l]=="Conventional Corn"||);
+      if(l==0||l==3||l==6||l==11||l==14||l==15||l==16||l==17||l==20){
+        htmlTableString += "<td>" + frontendNames[l] + "</td>";
+      }else{
+        subcategory=true;
+        htmlTableString += "<td>&nbsp&nbsp&nbsp&nbsp&nbsp<i>" + frontendNames[l] + "<i></td>";
+      }
       for (var y = 1; y <= upToYear; y++) {
         htmlTableString += "<td>";
 
         var tempString = backendDataIdentifiers[l] + "Score";
         htmlTableString += (Math.round(Totals[tempString][y] * 10) / 10) + "<br>";
-
         htmlTableString += "</td>";
       } //for each year
       //units cell
@@ -2325,11 +2328,6 @@ function generateResultsTable() {
       for (var y = 1; y <= upToYear; y++) {
         htmlTableString += "<td>";
         var tempString = backendDataIdentifiers[l];
-        console.log(tempString);
-        console.log(conversionArray[l]);
-        console.log(Totals.yieldResults[y][tempString]);
-        console.log(Totals.yieldResults[y][tempString] * conversionArray[l] * 10);
-        console.log(Math.round(Totals.yieldResults[y][tempString] * conversionArray[l] * 10) / 10);
         htmlTableString += (Math.round(Totals.yieldResults[y][tempString] * conversionArray[l] * 10) / 10) + "<br>";
 
         htmlTableString += "</td>";
