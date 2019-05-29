@@ -2776,6 +2776,8 @@ function getHighlightedInfo(tileId) {
         highlightString = "Biodiversity: " + getTileBiodiversityInfoText(getTileBiodiversityScore(tileId)) + "<br>";
         break;
       case 23:
+        console.log(Totals);
+        console.log(boardData[currentBoard].map[tileId].results[currentYear].calculatedTileNitrate);
         highlightString = "Nitrate Tile: " + getTileNitrateInfoText((Number(boardData[currentBoard].map[tileId].results[currentYear].calculatedTileNitrate)).toFixed(2)) + "<br>"+boardData[currentBoard].map[tileId].results[currentYear].calculatedTileNitrate.toFixed(2)+"<br>";
         break;
     }
