@@ -298,7 +298,7 @@ function displayResults() {
   //create precipitation Bar Graph
   drawPrecipitationInformationChart();
   econGraphic1 = EconomicsGraphic1().getInstance().render();
-
+  //econGraphic4 = EconomicsGraphic4().getInstance().render();
 
   //DEPRECATED, (create ecosystem indicators aster plot
   //drawEcosystemIndicatorsDisplay(currentYear);
@@ -2260,12 +2260,12 @@ function generateResultsTable() {
 
       //keep track of subheadings, just 1 this time
       switch (l) {
-        case 0:  
+        case 0:
           //htmlTableString += "<tr class='tableHeading'><td><b>Yield</b></td></tr>";
             //put Yield header, in bold
             htmlTableString += "<tr>";
             htmlTableString += "<td><b>" + "Yield" + "<b></td>";
-            
+
             //calculate total score for each year and place next to Yield header
             for(var y = 1; y <= upToYear; y++){
               htmlTableString += "<td><b>";
@@ -4041,7 +4041,7 @@ d3.selection.prototype.moveToBack = function() {
 }
 
 function createMockDataGraphic1(){
-  var econData = economics.getInstance().data;
+  var econData = economics().getInstance().data;
   econData = econData.map((d, i) => {
     return {cost: d['Action - Cost Type']['total']*-1, landUse: d.landUse}
   });
@@ -4378,4 +4378,97 @@ function stackMax(layers) {
     if(d[1] > 0) return 1.1 * (d[1] - d[0]);
     return 0;
   });
+}
+
+function EconomicsGraphic4(){
+  var instance;
+
+
+  function init(){
+    var econBody = document.getElementById('resultsFrame').contentWindow.document.getElementById('econGraphic4svg');
+    var econGraphic1 = document.getElementById('resultsFrame').contentWindow.document.getElementById('econGraphic4');
+    //window = document.getElementById('resultsFrame');
+
+    // options
+      var margin = {top: 40, right: 10, bottom: 20, left: 60 }
+      var width = 1800*.7 - margin.left - margin.right;
+      var height =  1800*.45 - margin.top - margin.bottom; //give or take the golden ratio
+      var rectWidth = 100;
+      // data
+    //var data = [[50, "red"], [100, "teal"], [125, "yellow"], [75, "purple"], [25, "green"]];
+    var data = [[50, "red"], [100, "teal"], [125, "yellow"], [75, "purple"], [25, "green"],[100,"blue"],[20,"black"]];
+    // scales
+    var xMax = data.length * rectWidth;
+    var xScale = d3.scaleLinear()
+    	.domain([0, xMax])
+    	.range([margin.left, width - margin.right]);
+    var yMax = d3.max(data, function(d){return d[0]});
+    var yScale = d3.scaleLinear()
+    	.domain([0, yMax])
+    	.range([height - margin.bottom, margin.top]);
+
+    var svg = d3.select(econBody);
+    svg
+        .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+    drawBars=function() {
+      // bars
+    var rect = svg.selectAll('rect')
+    	.data(data)
+    	.enter().append('rect')
+    	.attr('x', function(d, i){
+        console.log(i);
+        return xScale(i * rectWidth)})
+    	.attr('y', function(d){
+        return yScale(d[0])})
+    	.attr('width', xScale(rectWidth) - margin.left)
+    	.attr('height', function(d){
+        return height - margin.bottom - yScale(d[0])})
+			.attr('fill', function(d){
+        return d[1]})
+    	.attr('margin', 0);
+
+    // axes
+    var xAxis = d3.axisBottom()
+    	.scale(xScale);
+
+    var yAxis = d3.axisLeft()
+    	.scale(yScale)
+    	.tickFormat(d3.format('d'));
+
+    svg.append('g')
+      	.attr('transform', 'translate(' + [0, height - margin.bottom] + ')')
+      	.call(xAxis);
+    svg.append("text")
+    .attr("transform", "translate(" + (width/2) + " ," + (height + margin.top + 20) + ")")
+    .style("text-anchor","middle")
+    .text("x axis");
+      svg.append('g')
+      	.attr('transform', 'translate(' + [margin.left, 0] + ')')
+      	.call(yAxis);
+    }
+    var render=function(){
+
+      //svg.selectAll("*").remove();
+      drawBars();
+      console.log("asd");
+    }
+    return {
+      drawBars:drawBars,
+      render:render,
+    };
+  }
+
+  return {
+    getInstance:function(){
+      if(!instance){
+        instance=init();
+      }
+      return instance;
+    }
+  };
 }
